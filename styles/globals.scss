@@ -1,0 +1,104 @@
+@import "animations.scss";
+html {
+	font-size: 1vw;
+}
+html,
+body {
+	color: white;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background-color: #06202a;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.header {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 20px;
+	.icons {
+		color: honeydew;
+		display: flex;
+		align-items: center;
+		.col {
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-right: max(1.25rem, 14px);
+			width: max(4.1rem, 32px);
+			.icon {
+				width: 32px;
+				margin-bottom: 4px;
+			}
+			&:last-of-type {
+				margin-right: 0;
+			}
+			p {
+				transition: 0.3s;
+				opacity: 0;
+				font-size: 16px;
+			}
+			&:hover {
+				.icon {
+					animation: bounce 1s infinite;
+				}
+				p {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	.logo {
+		object-fit: contain;
+	}
+}
+.navigation {
+	position: relative;
+	.scroller {
+		&::-webkit-scrollbar {
+			display: none;
+		}
+		display: flex;
+		overflow-x: scroll;
+		padding-left: max(4.1rem, 40px);
+
+		.genre {
+			margin-right: max(4.1rem, 40px);
+			white-space: nowrap;
+			font-size: 24px;
+			transition: 0.2s;
+			cursor: pointer;
+			&:active {
+				color: red;
+			}
+			&:hover {
+				transform: scale(1.25);
+			}
+		}
+	}
+	.fade {
+		pointer-events: none;
+		position: absolute;
+		height: 100%;
+		width: max(4rem, 40px);
+		right: 0;
+		bottom: 0;
+		top: 0;
+
+		background: linear-gradient(90deg, transparent, #06202a);
+	}
+}
