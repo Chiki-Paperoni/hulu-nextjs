@@ -3,7 +3,6 @@ import Thumbnail from "./Thumbnail";
 
 //pass genre string in props
 export default function Movies(props) {
-	console.log(props.movies);
 	// const [list, setList] = useState([]);
 
 	// useEffect(() => {

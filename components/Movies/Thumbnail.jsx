@@ -1,7 +1,7 @@
 import { ThumbUpIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 export default function Thumbnail({ movie }) {
-	const BASE_URL = "https://image.tmdb.org/t/p/original/";
+	const BASE_URL = "https://image.tmdb.org/t/p/original";
 	return (
 		<div className="thumbnail">
 			<Image
