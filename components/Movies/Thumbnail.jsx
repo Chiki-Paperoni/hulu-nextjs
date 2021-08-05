@@ -6,7 +6,10 @@ export default function Thumbnail({ movie }) {
 		<div className="thumbnail">
 			<Image
 				layout="responsive"
-				src={`${BASE_URL}${movie.backdrop_path || movie.poster_path}`}
+				src={
+					`${BASE_URL}${movie.backdrop_path || movie.poster_path}` ||
+					`${BASE_URL}${movie.poster_path}`
+				}
 				width={1920}
 				height={1080}
 			/>
