@@ -26,22 +26,23 @@ export default function Home(props) {
 			</Head>
 			<Header />
 			<Filters />
-			<Movies genre={genre || "Trending"} movies={props.results} />
+			<Movies genre={genre || "Trending"} />
 		</div>
 	);
 }
 
-export async function getServerSideProps(context) {
-	const genre = context.query.genre;
+//alternative for useEffect in Movies component ToLearn return goes to props of Home
+// export async function getServerSideProps(context) {
+// 	const genre = context.query.genre;
 
-	const request = await fetch(
-		`https://api.themoviedb.org/3${
-			requests[genre]?.url || requests.Trending.url
-		}`
-	).then((res) => res.json());
-	return {
-		props: {
-			results: request.results,
-		},
-	};
-}
+// 	const request = await fetch(
+// 		`https://api.themoviedb.org/3${
+// 			requests[genre]?.url || requests.Trending.url
+// 		}`
+// 	).then((res) => res.json());
+// 	return {
+// 		props: {
+// 			results: request.results,
+// 		},
+// 	};
+// }
