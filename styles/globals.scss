@@ -2,6 +2,8 @@
 html {
 	font-size: 1vw;
 }
+@media scr {
+}
 html,
 body {
 	color: white;
@@ -73,6 +75,7 @@ a {
 			display: none;
 		}
 		display: flex;
+		justify-content: center;
 		overflow-x: scroll;
 		padding-left: max(4.1rem, 40px);
 
@@ -100,5 +103,50 @@ a {
 		top: 0;
 
 		background: linear-gradient(90deg, transparent, #06202a);
+	}
+}
+
+.results {
+	padding: 0 20px;
+	margin-top: 40px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(max(320px, 32rem), 1fr));
+	justify-content: center;
+	.thumbnail {
+		padding: 8px;
+		transition: 0.2s;
+		p {
+			padding: 0 12px;
+			margin-bottom: 8px;
+		}
+		.overview {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 16px;
+		}
+		.title {
+			font-size: 24px;
+		}
+		.stats {
+			font-size: 16px;
+			opacity: 0;
+			transition: 0.2s;
+			.thumbUp {
+				width: 18px;
+				margin: 0 4px;
+			}
+		}
+		&:hover {
+			.stats {
+				opacity: 1;
+			}
+			transform: scale(1.05);
+		}
+	}
+}
+@media (min-width: 1921px) {
+	html {
+		font-size: 19.2px;
 	}
 }

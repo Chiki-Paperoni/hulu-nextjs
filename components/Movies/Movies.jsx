@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
+import Thumbnail from "./Thumbnail";
 
+//pass genre string in props
 export default function Movies(props) {
-	const [list, setList] = useState();
+	const [list, setList] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
 			const result = await fetch(
 				`/api/movies?genre=${props.genre || "Trending"}`
 			).then((r) => r.json());
-			setList(result);
 
-			console.log(list);
+			setList(result);
 		}
+
 		fetchData();
 	}, [props.genre]);
 	return (
-		<div>
+		<div className="results">
 			{list?.map((e) => (
-				<h1 key={e.id}>{e.original_title}</h1>
+				<Thumbnail key={e.id} movie={e} />
 			))}
 		</div>
 	);
