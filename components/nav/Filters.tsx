@@ -9,6 +9,7 @@ export default function Filters() {
 					<h2
 						className="genre"
 						onClick={() => router.push(`/?genre=${key}`)}
+						// router.push({ query: { ...router.query, genre: key } }) for just ading genre param to current
 						key={key}
 					>
 						{title}

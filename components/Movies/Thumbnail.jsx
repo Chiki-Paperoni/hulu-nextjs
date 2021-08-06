@@ -1,9 +1,13 @@
 import { ThumbUpIcon } from "@heroicons/react/outline";
 import Image from "next/image";
+import router from "next/router";
 export default function Thumbnail({ movie }) {
 	const BASE_URL = "https://image.tmdb.org/t/p/original";
 	return (
-		<div className="thumbnail">
+		<div
+			className="thumbnail"
+			onClick={() => router.push(`/movies/${movie.id}`)}
+		>
 			<Image
 				layout="responsive"
 				src={
