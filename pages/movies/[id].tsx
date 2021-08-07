@@ -4,7 +4,13 @@ import Header from "../../components/Header/Header";
 import Filters from "../../components/nav/Filters";
 export default function Movie(props: any) {
 	const router = useRouter();
-	console.log(router.query.id);
+	if (props.results.length === 0)
+		return (
+			<div>
+				<Header />
+				<Filters />
+			</div>
+		);
 	return (
 		<div>
 			<Header />
@@ -27,7 +33,6 @@ export async function getServerSideProps(context: any) {
 	const request = await fetch(
 		`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.API_KEY}`
 	).then((res) => res.json());
-	console.log(request.results);
 
 	return {
 		props: {
