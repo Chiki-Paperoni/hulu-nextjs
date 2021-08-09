@@ -3,57 +3,15 @@ import Image from "next/image";
 import Header from "../components/Header/Header";
 import Filters from "../components/nav/Filters";
 import Movies from "../components/Movies/Movies";
-import { useEffect, useState, useCallback, useRef } from "react";
-
-import { useRouter } from "next/router";
+import { useRef } from "react";
 import requests from "../utils/requests";
 
-function useFetch(genre, page) {
-	const [list, setList] = useState([]);
-
-	const fetchData = useCallback(async () => {
-		const res = await fetch(
-			`/api/movies?genre=${genre || ""}&page=${page}`
-		).then((r) => r.json());
-		setList((prev) => [...prev, ...res]);
-	}, [page, genre]);
-
-	useEffect(() => {
-		fetchData(genre);
-	}, [page, fetchData, genre]);
-
-	return { list, setList };
-}
+import { useRouter } from "next/router";
+import useScroll from "../Hooks/useScroll";
 
 export default function Home(props) {
-	const router = useRouter();
-
-	const genre = router.query.genre;
-	const [page, setPage] = useState(1);
-	const { list, setList } = useFetch(genre, page);
 	const loader = useRef(null);
-
-	useEffect(() => {
-		setList([]);
-		setPage(1);
-	}, [genre]);
-
-	const handleObserver = useCallback((entries) => {
-		const target = entries[0];
-		if (target.isIntersecting) {
-			setPage((prev) => prev + 1);
-		}
-	}, []);
-	useEffect(() => {
-		const option = {
-			root: null,
-			rootMargin: "20px",
-
-			threshold: 0,
-		};
-		const observer = new IntersectionObserver(handleObserver, option);
-		if (loader.current) observer.observe(loader.current);
-	}, [handleObserver]);
+	const { list } = useScroll(loader);
 
 	return (
 		<div>
@@ -64,22 +22,26 @@ export default function Home(props) {
 			</Head>
 			<Header />
 			<Filters />
-			<Movies movies={list} />
-			{/* 
-			{loading && <p>Loading...</p>}
-			{error && <p>Error!</p>} */}
-
+			<Movies initial={props.initialList} loaded={list} />
 			<div id="interceptor" ref={loader}></div>
 		</div>
 	);
 }
 
 //FIRST 2 RENDERS QUERY IS EMPTY SO THIS PROPS ARE CRUTIAL
+//also fetches first page of movies
 export async function getServerSideProps(context) {
 	const genre = context.query.genre || "";
+	const result = await fetch(
+		`https://api.themoviedb.org/3${
+			requests[genre]?.url || requests.Trending.url
+		}&page=1`
+	).then((data) => data.json());
+
 	return {
 		props: {
 			genre,
+			initialList: result.results,
 		},
 	};
 }

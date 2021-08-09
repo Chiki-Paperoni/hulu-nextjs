@@ -3,30 +3,26 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Filters from "../../components/nav/Filters";
 export default function Movie(props: any) {
-	const router = useRouter();
-	if (props.results.length === 0)
-		return (
-			<div>
-				<Header />
-				<Filters />
-			</div>
-		);
 	return (
 		<div>
 			<Header />
 			<Filters />
-			<iframe
-				id="ytplayer"
-				width="640"
-				height="360"
-				src={`http://www.youtube.com/embed/${props.results[0].key}`}
-				frameBorder="0"
-			/>
+			{props.results.length === 0 ? (
+				<p>No videos found</p>
+			) : (
+				<iframe
+					id="ytplayer"
+					width="640"
+					height="360"
+					src={`https://www.youtube.com/embed/${props.results[0].key}`}
+					frameBorder="0"
+				/>
+			)}
 		</div>
 	);
 }
 
-//alternative for useEffect in Movies component ToLearn return goes to props of Home
+//alternative for useEffect in Movies component , return goes to props of Home
 export async function getServerSideProps(context: any) {
 	const id = context.query.id;
 
