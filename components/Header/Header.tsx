@@ -8,7 +8,21 @@ import {
 } from "@heroicons/react/outline";
 import Image from "next/image";
 import HeaderItem from "./HeaderItem";
-function Header() {
+import { useRouter } from "next/router";
+
+export default function Header(props: any) {
+	const login = async () => {
+		const reqToken = await fetch(
+			"https://api.themoviedb.org/3/authentication/token/new?api_key=5a997520f792536c9681f8b58926aa14"
+		)
+			.then((data) => data.json())
+			.then((result) => result.request_token);
+		window.open(
+			`https://www.themoviedb.org/authenticate/${reqToken}?redirect_to=http://localhost:3000`
+		);
+		//sessionStorage.setItem("reqToken", reqToken);
+	};
+
 	return (
 		<header className="header">
 			<div className="icons">
@@ -17,7 +31,7 @@ function Header() {
 				<HeaderItem title="VERIFIED" icon={BadgeCheckIcon} />
 				<HeaderItem title="COLLECTIONS" icon={CollectionIcon} />
 				<HeaderItem title="SEARCH" icon={SearchIcon} />
-				<HeaderItem title="ACCOUNT" icon={UserIcon} />
+				<HeaderItem title="Login" icon={UserIcon} handler={login} />
 			</div>
 
 			<Image
@@ -29,5 +43,3 @@ function Header() {
 		</header>
 	);
 }
-
-export default Header;
