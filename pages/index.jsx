@@ -32,25 +32,6 @@ export default function Home(props) {
 //FIRST 2 RENDERS QUERY IS EMPTY SO THIS PROPS ARE CRUTIAL
 //also fetches first page of movies
 export async function getServerSideProps(context) {
-	if (context.query.request_token) {
-		const session = await fetch(
-			"https://api.themoviedb.org/3/authentication/session/new?api_key=5a997520f792536c9681f8b58926aa14",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ request_token: context.query.request_token }),
-			}
-		).then((data) => data.json());
-		console.log(session);
-		// return {
-		// 	props: {
-		// 		session,
-		// 	},
-		// };
-	}
-
 	const genre = context.query.genre || "";
 	const result = await fetch(
 		`https://api.themoviedb.org/3${

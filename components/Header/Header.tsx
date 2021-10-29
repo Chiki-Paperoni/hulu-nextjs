@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import HeaderItem from "./HeaderItem";
 import { useRouter } from "next/router";
+const DOMAIN = process.env.DOMAIN || "localhost:3000";
 
 export default function Header(props: any) {
 	const login = async () => {
@@ -18,9 +19,9 @@ export default function Header(props: any) {
 			.then((data) => data.json())
 			.then((result) => result.request_token);
 		window.open(
-			`https://www.themoviedb.org/authenticate/${reqToken}?redirect_to=http://localhost:3000`
+			`https://www.themoviedb.org/authenticate/${reqToken}?redirect_to=http://${DOMAIN}/allow`
 		);
-		//sessionStorage.setItem("reqToken", reqToken);
+		sessionStorage.setItem("reqToken", reqToken);
 	};
 
 	return (
